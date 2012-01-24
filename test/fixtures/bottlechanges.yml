@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  comment: MyText
+  drinker: 
+  addremove: 1
+
+two:
+  comment: MyText
+  drinker: 
+  addremove: 1

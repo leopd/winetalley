@@ -1,0 +1,53 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<h1>Wine Talley</h1>
+
+<style>
+    .incdecbutton {
+        cursor: pointer;
+        background: #eee;
+        padding: 2px 5px;
+        border-radius: 8px;
+        margin: 2px 5px;
+        font-weight: bold;
+        border: 1px solid black;
+    }
+</style>
+
+<table>
+  <tr>
+    <th>Who</th>
+    <th>Bottles</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @drinkers.each do |drinker| %>
+  <tr>
+    <td><%= drinker.name %></td>
+    <td><%= drinker.talley %></td>
+    <td class="incdecbutton" data-path="<%= url_for decrement_drinker_path(drinker) %>">-1</td>
+    <td class="incdecbutton" data-path="<%= url_for increment_drinker_path(drinker) %>">+1</td>
+  </tr>
+<% end %>
+
+<script>
+    $(function() {
+        $(".incdecbutton").click(function() {
+            var td = $(this);
+            $.ajax({
+                type:'POST',
+                url: td.attr('data-path'),
+                success: function() {
+                    window.location.reload();
+                },
+                error: function() {
+                    alert("Server vomit updating your talley");
+                }
+            });
+        });
+    });
+</script>
+
+</table>
+
+<%= link_to "(Manage Homies)", drinkers_path %>
