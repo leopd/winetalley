@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Wine</title>
-  <%= stylesheet_link_tag    "application" %>
+  <title>Wine Talley</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="viewport" content="width=device-width">
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <style>
+    body {
+        font-family: sans-serif;
+        margin: 0;
+        font-size: 18px;
+    }
+    .header {
+        background: #600;
+        color: #ddd;
+        font-size: 24px;
+        text-align: center;
+        padding: 5px 8px 4px;
+        margin: 0;
+    }
+    .header a {
+        text-decoration: none;
+        color: #fff;
+    }
+    .main {
+        border: solid 8px #600;
+        padding: 10px;
+        height: 100%;
+    }
+    hr {
+        background-color: #600;
+        height: 5px;
+        width: 100%;
+        margin-top: 25px;
+    }
+  </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 </head>
 <body>
-
+<div class="header">
+<a href="/">
+Homey Wine Talley
+</a>
+</div>
+<div class="main">
 <%= yield %>
+</div>
 
 </body>
 </html>

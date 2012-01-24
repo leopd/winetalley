@@ -2,9 +2,7 @@ Wine::Application.routes.draw do
   resources :drinkers do
     resources :bottlechanges
     member do
-      # TODO: These should be POST
-      post 'increment'
-      post 'decrement'
+      post 'debitcredit'
     end
   end
 

@@ -1,5 +1,3 @@
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<h1>Wine Talley</h1>
 
 <style>
     .incdecbutton {
@@ -11,22 +9,31 @@
         font-weight: bold;
         border: 1px solid black;
     }
+
+    table {
+        border-spacing: 20px 10px;
+    }
+
+
+
 </style>
 
 <table>
+  <!--
   <tr>
+    <th></th>
+    <th></th>
     <th>Who</th>
     <th>Bottles</th>
-    <th></th>
-    <th></th>
   </tr>
+  -->
 
 <% @drinkers.each do |drinker| %>
   <tr>
+    <td class="incdecbutton" data-msg="Debit <%= drinker.name %>" data-num="-1" data-path="<%= url_for debitcredit_drinker_path(drinker) %>"><nobr>-1</nobr></td>
+    <td class="incdecbutton" data-msg="Credit <%= drinker.name %>" data-num="1" data-path="<%= url_for debitcredit_drinker_path(drinker) %>"><nobr>+1</nobr></td>
     <td><%= drinker.name %></td>
     <td><%= drinker.talley %></td>
-    <td class="incdecbutton" data-path="<%= url_for decrement_drinker_path(drinker) %>">-1</td>
-    <td class="incdecbutton" data-path="<%= url_for increment_drinker_path(drinker) %>">+1</td>
   </tr>
 <% end %>
 
@@ -34,8 +41,18 @@
     $(function() {
         $(".incdecbutton").click(function() {
             var td = $(this);
+            var comment = prompt(td.attr('data-msg')+" a bottle. (Comment optional)"," ");
+            if( !comment ) {
+                // they hit cancel
+                return;
+            }
+            var data = {
+                comment: comment,
+                addremove: td.attr('data-num')
+            };
             $.ajax({
                 type:'POST',
+                data: data,
                 url: td.attr('data-path'),
                 success: function() {
                     window.location.reload();
@@ -50,4 +67,5 @@
 
 </table>
 
+<hr/>
 <%= link_to "(Manage Homies)", drinkers_path %>

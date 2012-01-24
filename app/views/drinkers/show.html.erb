@@ -10,21 +10,19 @@
   <%= @drinker.talley %>
 </p>
 
-<h2>Update</h2>
-<%= form_for([@drinker, @drinker.bottlechanges.build]) do |f| %>
-  <div class="field">
-    <%= f.label :addremove %><br />
-    <%= f.text_field :addremove %>
-  </div>
-  <div class="field">
-    <%= f.label :comment %><br />
-    <%= f.text_area :comment %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
-
 
 <%= link_to 'Edit', edit_drinker_path(@drinker) %> |
 <%= link_to 'Back', drinkers_path %>
+<hr/>
+<h4>Wine Record</h4>
+<ul>
+<% @drinker.bottlechanges.each do |bottlechange| %>
+  <li>
+    <%= bottlechange.plusminus %>1 bottle on <%= bottlechange.created_at %>
+    <% if bottlechange.comment %>
+        (<%= bottlechange.comment %>)
+    <% end %>
+  </li>
+<% end %>
+</ul>
+

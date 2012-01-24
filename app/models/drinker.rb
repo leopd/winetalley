@@ -2,10 +2,17 @@ class Drinker < ActiveRecord::Base
     validates :name, :presence => true
     validates :talley, :presence => true
 
-    has_many :bottlechanges
     has_many :bottlechanges,
                   :after_add    => :talley_delta,
                   :after_remove => :talley_delta
+
+    after_initialize :set_defaults
+
+    private
+    def set_defaults
+        self.talley ||= 0
+    end
+
 
     def full_talley
         sum = 0

@@ -20,26 +20,14 @@ class DrinkersController < ApplicationController
     end
   end
 
-  def increment_or_decrement(val,id)
-    logger.info "inc or dec val is #{val}"
-    @drinker = Drinker.find(id)
-    logger.info @drinker
+
+  def debitcredit
+    @drinker = Drinker.find(params[:id])
     @drinker.bottlechanges.create({
-        :addremove => val
+        :addremove => params[:addremove],
+        :comment => params[:comment]
     })
-  end
-
-
-  def increment
-    logger.info("Increment")
-    increment_or_decrement(1, params[:id])
-    redirect_to "/main"  #TODO: better
-  end
-
-  def decrement
-    logger.info("Decrement")
-    increment_or_decrement(-1, params[:id])
-    redirect_to "/main"  #TODO: better
+    #TODO: check if create succeeded.
   end
 
 
